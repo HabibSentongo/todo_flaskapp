@@ -8,5 +8,10 @@
 </head>
 <body>
     <h1>Best ToDo App</h1>
+    <ul>
+        {% for d in data %}
+        <li>{{ d.description }}</li>
+        {% endfor %}
+    </ul>
 </body>
 </html>
