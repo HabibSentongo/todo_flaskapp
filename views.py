@@ -1,7 +1,11 @@
-from flask import Flask, render_template
-
-app = Flask(__name__)
+from flask import render_template
+from controllers import AllMethods
+from app import app
 
 @app.route('/', methods=['GET'])
 def index():
-    return render_template('index.html')
+    return AllMethods.home()
+
+
+if __name__ == '__main__':
+    app.run(debug=True)
