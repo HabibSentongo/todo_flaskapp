@@ -2,6 +2,7 @@ from flask import render_template
 from controllers import AllMethods
 from app import app
 
+app._static_folder = 'templates/static'
 methods = AllMethods()
 
 @app.route('/', methods=['GET'])

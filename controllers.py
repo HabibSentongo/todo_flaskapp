@@ -1,4 +1,4 @@
-from flask import render_template, request, redirect, url_for
+from flask import render_template, request, redirect, url_for, jsonify
 from models import ToDo, db
 
 class AllMethods:
@@ -7,8 +7,10 @@ class AllMethods:
         return render_template('index.html', data = ToDo.query.all())
 
     def create(self):
-        description = request.form.get('description', '')
+        description = request.get_json()['description']
         newToDo = ToDo(description = description)
         db.session.add(newToDo)
         db.session.commit()
-        return redirect(url_for('index'))
+        return jsonify({
+            'description' : description
+        })
