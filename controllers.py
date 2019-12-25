@@ -23,3 +23,23 @@ class AllMethods:
         finally:
             db.session.close()
         return jsonify(body)
+
+    def complete(self, todo_id):
+        error = False
+        body = {}
+        try:
+            completed = request.get_json()['completed']
+            todo = ToDo.query.get(todo_id)
+            todo.completed = completed
+            db.session.commit()
+            body = {
+                'description' : todo.description,
+                'status' : todo.completed
+                }
+        except:
+            error = True
+            db.session.rollback()
+            print(sys.exec_info())
+        finally:
+            db.session.close()
+        return jsonify(body)

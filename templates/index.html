@@ -14,7 +14,7 @@
     <h3>Upcoming</h3>
     <ul id="todos">
         {% for d in data %}
-        <li>{{ d.description }}</li>
+        <li> <input class="check-completed" data-id="{{ d.id }}" type="checkbox" {% if d.completed %} checked {% endif %}> {{ d.description }}</li>
         {% endfor %}
     </ul>
 

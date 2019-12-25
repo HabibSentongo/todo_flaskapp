@@ -13,6 +13,10 @@ def index():
 def create():
     return methods.create()
 
+@app.route('/todo/<todo_id>/complete', methods=['POST'])
+def complete(todo_id):
+    return methods.complete(todo_id)
+
 
 if __name__ == '__main__':
     app.run(debug=True)
