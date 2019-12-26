@@ -1,6 +1,7 @@
 window.onload = function(){
     create();
     complete();
+    deletefn();
 }
 
 function create(){
@@ -41,13 +42,32 @@ function complete(){
             const todoID = e.target.dataset['id'];
             console.log(todoID)
             fetch('/todo/'+ todoID +'/complete', {
-                method: 'POST',
+                method: 'PATCH',
                 body: JSON.stringify({
                     'completed': newCompleted
                 }),
                 headers: {
                     'Content-Type': 'application/json'
                 }
+            })
+
+        }
+    }
+}
+
+function deletefn(){
+    const deletebtns = document.querySelectorAll('.delete');
+    for (let i = 0; i < deletebtns.length; i++){
+        const deletebtn = deletebtns[i];
+        deletebtn.onclick = function(e){
+            console.log('event', e);
+            const todoID = e.target.dataset['id'];
+            console.log(todoID)
+            fetch('/todo/'+ todoID +'/delete', {
+                method: 'DELETE'
+                // headers: {
+                //     'Content-Type': 'application/json'
+                // }
             })
 
         }

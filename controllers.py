@@ -5,7 +5,7 @@ import sys
 class AllMethods:
 
     def home(self):
-        return render_template('index.html', data = ToDo.query.all())
+        return render_template('index.html', data = ToDo.query.order_by('id').all())
 
     def create(self):
         error = False
@@ -35,6 +35,24 @@ class AllMethods:
             body = {
                 'description' : todo.description,
                 'status' : todo.completed
+                }
+        except:
+            error = True
+            db.session.rollback()
+            print(sys.exec_info())
+        finally:
+            db.session.close()
+        return jsonify(body)
+
+    def delete(self, todo_id):
+        error = False
+        body = {}
+        try:
+            ToDo.query.filter_by(id = todo_id).delete()
+            db.session.commit()
+            body = {
+                'messege' : f'Task {todo_id} successfully Thanosed!',
+                'status' : 202
                 }
         except:
             error = True
